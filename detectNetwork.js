@@ -18,6 +18,16 @@ var detectNetwork = function(cardNumber) {
   else if (firstTwoNumbers === '34' || firstTwoNumbers === '37' & cardNumber.length === 15) {
   	return 'American Express';
   }
+  //Visa always has a prefix of 4 and a length of 13, 16, or 19.
+	else if (firstTwoNumbers[0] === '4' & (cardNumber.length === 13 || cardNumber.length === 16 || 
+		cardNumber.length === 19)) {
+		return 'Visa';
+	}
+  //MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16.
+  else if ((firstTwoNumbers === '51' || firstTwoNumbers === '52' || firstTwoNumbers === '53'
+  	|| firstTwoNumbers === '54' || firstTwoNumbers === '55') & cardNumber.length === 16) {
+  	return 'MasterCard';
+  }
   // Once you've read this, go ahead and try to implement this function, then return to the console.
 };
 
