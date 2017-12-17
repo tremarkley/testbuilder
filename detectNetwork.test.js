@@ -201,5 +201,51 @@ describe('Maestro', function() {
   }
 });
 
-describe('should support China UnionPay')
-describe('should support Switch')
+describe('China UnionPay', function() {
+  var expect = chai.expect;
+  for (var prefix = 622126; prefix <= 622925; prefix++) {
+    (function(prefix) {
+      for (let len = 16; len <= 19; len++) { 
+        it('has a prefix of ' + prefix + ' and a length of ' + len, function() {
+          expect(detectNetwork(prefix.toString() + randomNumberLength(len - prefix.toString().length))).to.equal('China UnionPay');
+        });
+      }
+      })(prefix)
+  }
+
+  for (var prefix = 624; prefix <= 626; prefix++) {
+    (function(prefix) {
+      for (let len = 16; len <= 19; len++) { 
+        it('has a prefix of ' + prefix + ' and a length of ' + len, function() {
+          expect(detectNetwork(prefix.toString() + randomNumberLength(len - prefix.toString().length))).to.equal('China UnionPay');
+        });
+      }
+      })(prefix)
+  }
+
+  for (var prefix = 6282; prefix <= 6288; prefix++) {
+    (function(prefix) {
+      for (let len = 16; len <= 19; len++) { 
+        it('has a prefix of ' + prefix + ' and a length of ' + len, function() {
+          expect(detectNetwork(prefix.toString() + randomNumberLength(len - prefix.toString().length))).to.equal('China UnionPay');
+        });
+      }
+      })(prefix)
+  }
+
+});
+
+describe('Switch', function() {
+  var expect = chai.expect;
+  var switchPrefixes = ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'];
+  var switchLengths = [16, 18, 19];
+  for (var prefix_i = 0; prefix_i < switchPrefixes.length; prefix_i++) {
+    (function(prefix) {
+      for (let len_i = 0; len_i < switchLengths.length; len_i++) { 
+        it('has a prefix of ' + prefix + ' and a length of ' + switchLengths[len_i], function() {
+          expect(detectNetwork(prefix.toString() + randomNumberLength(switchLengths[len_i] - prefix.toString().length))).to.equal('Switch');
+        });
+      }
+      })(switchPrefixes[prefix_i])
+  }
+})
