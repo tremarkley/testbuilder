@@ -10,6 +10,9 @@
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
   var firstTwoNumbers = cardNumber[0] + cardNumber[1];
+  //Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+  var switchPrefixes = ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'];
+  var switchLengths = [16, 18, 19];
   // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
   if (firstTwoNumbers === '38' || firstTwoNumbers === '39' & cardNumber.length === 14) {
   	return 'Diner\'s Club';
@@ -18,6 +21,11 @@ var detectNetwork = function(cardNumber) {
   else if (firstTwoNumbers === '34' || firstTwoNumbers === '37' & cardNumber.length === 15) {
   	return 'American Express';
   }
+  	
+	else if ((switchPrefixes.includes(cardNumber.substring(0, 4)) || switchPrefixes.includes(cardNumber.substring(0, 6))) & 
+	  	switchLengths.includes(cardNumber.length)) {
+	  	return "Switch";
+	}
   //Visa always has a prefix of 4 and a length of 13, 16, or 19.
 	else if (firstTwoNumbers[0] === '4' & (cardNumber.length === 13 || cardNumber.length === 16 || 
 		cardNumber.length === 19)) {
@@ -40,6 +48,15 @@ var detectNetwork = function(cardNumber) {
   		(cardNumber.length >= 12 && cardNumber.length <= 19)) {
   	return 'Maestro';
   }
+
+  //China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+  else if (((cardNumber.substring(0, 6) >= '622126' & cardNumber.substring(0, 6) <= '622925') ||
+  	(cardNumber.substring(0, 3) >= '624' & cardNumber.substring(0, 3) <= '626') || 
+  		(cardNumber.substring(0, 4) >= '6282' & cardNumber.substring(0, 4) <= '6288')) & 
+  			(cardNumber.length >= 16 & cardNumber.length <= 19)) {
+  	return "China UnionPay";
+  }
+
 };
 
 
