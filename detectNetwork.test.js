@@ -7,6 +7,15 @@
 // other places in this file where you'll replace the FILL_ME_IN with a
 // different value.
 var FILL_ME_IN = 'Fill this value in';
+
+function randomNumberLength(len) {
+  var result = '';
+  for (var i = 0; i < len; i++)
+  {
+    result += Math.floor(Math.random() * 10).toString();
+  }
+  return result;
+}
  
 /*describe('Introduction to Mocha Tests - READ ME FIRST', function() {
   // A Mocha test is just a function!
@@ -174,7 +183,24 @@ describe('Maestro', function() {
   // Write full test coverage for the Maestro card
   var expect = chai.expect;
 
-  it('has a prefix of 5018 and a length of 12', function() {
+  for (var len = 8; len <= 15; len++) {
+    (function(len) {
+      it('has a prefix of 5018 and a length of ' + (len + 4).toString(), function() {
+        expect(detectNetwork('5018' + randomNumberLength(len))).to.equal('Maestro');
+      });
+      it('has a prefix of 5020 and a length of ' + (len + 4).toString(), function() {
+        expect(detectNetwork('5020' + randomNumberLength(len))).to.equal('Maestro');
+      });
+      it('has a prefix of 5038 and a length of ' + (len + 4).toString(), function() {
+        expect(detectNetwork('5038' + randomNumberLength(len))).to.equal('Maestro');
+      });
+      it('has a prefix of 6304 and a length of ' + (len + 4).toString(), function() {
+        expect(detectNetwork('6304' + randomNumberLength(len))).to.equal('Maestro');
+      });
+    })(len)
+  }
+
+  /*it('has a prefix of 5018 and a length of 12', function() {
     expect(detectNetwork('501855789047')).to.equal('Maestro');
   });
 
@@ -300,7 +326,7 @@ describe('Maestro', function() {
 
   it('has a prefix of 6304 and a length of 19', function() {
     expect(detectNetwork('6304944667589403431')).to.equal('Maestro');
-  });
+  });*/
 });
 
 describe('should support China UnionPay')
